@@ -1,9 +1,13 @@
 package com.wuyou.server;
 
+import com.wuyou.server.captcha.MobileVerificationService;
+import com.wuyou.server.customer.CustomerRepository;
 import com.wuyou.server.entities.Customer;
 import com.wuyou.server.entities.RegisterBody;
 import com.wuyou.server.entities.TCustomer;
+import com.wuyou.server.entities.UserToken;
 import com.wuyou.server.util.BeanUtils;
+import com.wuyou.server.util.PhoneNoUtils;
 import com.wuyou.server.util.UUIDUtils;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @RestController
 public class CustomerApi {
@@ -33,37 +36,63 @@ public class CustomerApi {
     }
 
     @RequestMapping(value = "/customer/update/{id}/{propNames}", method = RequestMethod.PUT)
-    public BaseResponse updateCustomer(@PathVariable String id, @RequestBody() TCustomer customerTemplate) {
-        Customer c = repository.findById(new ObjectId(id));
+    public BaseResponse updateCustomerByProps(@PathVariable ObjectId id, @RequestBody TCustomer customerTemplate, @PathVariable List<String> propNames) {
+        Customer c = repository.findById(id);
         if (c == null) {
             return new BaseResponse(HttpStatus.NOT_FOUND);
         }
+        Customer customer = new Customer();
+        BeanUtils.copyProperties(customerTemplate, customer);
         try {
-            BeanUtils.copyProperties(customerTemplate, c);
-            return new BaseResponse(repository.save(c) != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+            return new BaseResponse(repository.setMultiFieldsByID(id, propNames, customer) ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new BaseResponse(HttpStatus.BAD_REQUEST, MemberHttpCodeMessage.TC020004);
+        }
+    }
+
+    @RequestMapping(value = "/customer/update/{id}", method = RequestMethod.PUT)
+    public BaseResponse updateCustomer(@PathVariable ObjectId id, @RequestBody TCustomer customerTemplate) {
+        Customer c = repository.findById(id);
+        if (c == null) {
+            return new BaseResponse(HttpStatus.NOT_FOUND);
+        }
+        repository.save(BeanUtils.copyProperties(customerTemplate, c));
+        try {
+            return new BaseResponse<>(c);
         } catch (Exception e) {
             return new BaseResponse(HttpStatus.BAD_REQUEST, MemberHttpCodeMessage.TC020004);
         }
     }
 
 
-    public Customer loginByPhone(String phone) {
-        Customer personMember = repository.findOneByMobile(phone);
-        // TODO 处理其他登录环节
+    @Autowired
+    MobileVerificationService mobileVerificationService;
 
-        return personMember;
+
+    @RequestMapping(value = "/customer/captcha", method = RequestMethod.POST)
+    public BaseResponse applyVerificationCode(@RequestBody BaseRequest request) {
+        if (!PhoneNoUtils.isValidPhoneNo(request.getValue())) {
+            return new BaseResponse(HttpStatus.BAD_REQUEST);
+        }
+        if (mobileVerificationService.send(request.getValue())) {
+            return new BaseResponse(HttpStatus.OK);
+        } else {
+            return new BaseResponse(HttpStatus.BAD_GATEWAY);
+        }
     }
 
     @RequestMapping(value = "/customer/create", method = RequestMethod.POST)
-    public Map<String, Object> registerByPhone(@RequestBody RegisterBody body) {
-        ObjectId personMemberId = UUIDUtils.generateObjectId();
-        Customer personMember = new Customer(personMemberId, Calendar.getInstance().getTime(), body.getMobile());
-        personMember.setName("用户" + body.getMobile());
-        repository.save(personMember);
-        Map<String, Object> result = new HashMap<>();
-        result.put("uid", personMemberId.toHexString());
-        result.put("token", "token");
-        result.put("expired", "expired");
-        return result;
+    public BaseResponse registerByPhone(@RequestBody RegisterBody body) {
+        if (mobileVerificationService.verify(body.getMobile(), body.getCaptcha())) {
+            ObjectId personMemberId = UUIDUtils.generateObjectId();
+            Customer personMember = new Customer(personMemberId, Calendar.getInstance().getTime(), body.getMobile());
+            personMember.setName("用户" + body.getMobile());
+            repository.save(personMember);
+            UserToken token = new UserToken();
+            token.id = personMemberId.toHexString();
+            return new BaseResponse<>(token);
+        } else {
+            return new BaseResponse(HttpStatus.BAD_REQUEST, "验证码错误");
+        }
     }
 }

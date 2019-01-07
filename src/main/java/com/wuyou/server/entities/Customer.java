@@ -6,13 +6,11 @@ import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-//@TypeAlias("Customer")
 @Document
-public class Customer implements WithId<ObjectId>{
+public class Customer {
     @Id
     private ObjectId id;
 

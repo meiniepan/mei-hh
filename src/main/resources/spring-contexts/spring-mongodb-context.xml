@@ -4,15 +4,4 @@
        xmlns:mongo="http://www.springframework.org/schema/data/mongo"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
-
-    <mongo:repositories base-package="com.wuyou"
-                        base-class="com.wuyou.server.CustomerRepository"/>
-
-    <mongo:mongo-client id="mongoClient" host="http://39.107.104.134" port="32700" credentials="admin@pass"/>
-
-    <mongo:db-factory dbname="test" mongo-ref="mongoClient"/>
-
-    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-        <constructor-arg ref="mongoDbFactory" />
-    </bean>
 </beans>

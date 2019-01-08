@@ -1,7 +1,9 @@
-package com.wuyou.server;
+package com.wuyou.server.customer;
 
+import com.wuyou.server.BaseRequest;
+import com.wuyou.server.BaseResponse;
+import com.wuyou.server.HttpCodeMessage;
 import com.wuyou.server.captcha.MobileVerificationService;
-import com.wuyou.server.customer.CustomerRepository;
 import com.wuyou.server.entities.Customer;
 import com.wuyou.server.entities.RegisterBody;
 import com.wuyou.server.entities.TCustomer;
@@ -18,12 +20,13 @@ import java.util.Calendar;
 import java.util.List;
 
 @RestController
-public class CustomerApi {
+@RequestMapping(path = "/customer")
+public class CustomerEndPoint {
 
     @Autowired
     private CustomerRepository repository;
 
-    @RequestMapping(value = "/customer/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public @ResponseBody
     BaseResponse<TCustomer> getCustomer(@PathVariable ObjectId id) {
         Customer cus = repository.findById(id);
@@ -35,7 +38,7 @@ public class CustomerApi {
         return new BaseResponse<>(tCustomer);
     }
 
-    @RequestMapping(value = "/customer/update/{id}/{propNames}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update/{id}/{propNames}", method = RequestMethod.PUT)
     public BaseResponse updateCustomerByProps(@PathVariable ObjectId id, @RequestBody TCustomer customerTemplate, @PathVariable List<String> propNames) {
         Customer c = repository.findById(id);
         if (c == null) {
@@ -46,11 +49,11 @@ public class CustomerApi {
         try {
             return new BaseResponse(repository.setMultiFieldsByID(id, propNames, customer) ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return new BaseResponse(HttpStatus.BAD_REQUEST, MemberHttpCodeMessage.TC020004);
+            return new BaseResponse(HttpStatus.BAD_REQUEST, HttpCodeMessage.TC020004);
         }
     }
 
-    @RequestMapping(value = "/customer/update/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     public BaseResponse updateCustomer(@PathVariable ObjectId id, @RequestBody TCustomer customerTemplate) {
         Customer c = repository.findById(id);
         if (c == null) {
@@ -60,7 +63,7 @@ public class CustomerApi {
         try {
             return new BaseResponse<>(c);
         } catch (Exception e) {
-            return new BaseResponse(HttpStatus.BAD_REQUEST, MemberHttpCodeMessage.TC020004);
+            return new BaseResponse(HttpStatus.BAD_REQUEST, HttpCodeMessage.TC020004);
         }
     }
 
@@ -69,8 +72,8 @@ public class CustomerApi {
     MobileVerificationService mobileVerificationService;
 
 
-    @RequestMapping(value = "/customer/captcha", method = RequestMethod.POST)
-    public BaseResponse applyVerificationCode(@RequestBody BaseRequest request) {
+    @RequestMapping(value = "/captcha", method = RequestMethod.POST)
+    public BaseResponse applyVerificationCode(@RequestBody BaseRequest<String> request) {
         if (!PhoneNoUtils.isValidPhoneNo(request.getValue())) {
             return new BaseResponse(HttpStatus.BAD_REQUEST);
         }
@@ -81,7 +84,7 @@ public class CustomerApi {
         }
     }
 
-    @RequestMapping(value = "/customer/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public BaseResponse registerByPhone(@RequestBody RegisterBody body) {
         if (mobileVerificationService.verify(body.getMobile(), body.getCaptcha())) {
             ObjectId personMemberId = UUIDUtils.generateObjectId();

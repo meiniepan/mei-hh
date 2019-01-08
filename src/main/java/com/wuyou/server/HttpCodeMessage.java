@@ -1,6 +1,6 @@
 package com.wuyou.server;
 
-public class MemberHttpCodeMessage {
+public class HttpCodeMessage {
     public static final String TC020001 = "验证码不正确，请重新输入！";
     public static final String TC020002 = "手机号或验证码不匹配，请重新输入！";
     public static final String TC020003 = "未找到该用户的基本信息！";

@@ -1,13 +1,13 @@
 package com.wuyou.server;
 
-public class BaseRequest {
-    private String value;
+public class BaseRequest<T> {
+    private T value;
 
-    public String getValue() {
+    public T getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(T value) {
         this.value = value;
     }
 }

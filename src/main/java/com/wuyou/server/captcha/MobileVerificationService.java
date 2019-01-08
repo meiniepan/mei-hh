@@ -1,7 +1,5 @@
 package com.wuyou.server.captcha;
 
-import com.aliyuncs.exceptions.ClientException;
-
 public interface MobileVerificationService {
     /**
      * 向指定手机号发送验证码

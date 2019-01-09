@@ -5,8 +5,6 @@ import com.wuyou.server.entities.Customer;
 import com.wuyou.server.repository.BaseRepository;
 import org.bson.types.ObjectId;
 
-import java.util.List;
-
 
 public interface CustomerRepository extends BaseRepository<Customer, ObjectId> {
 

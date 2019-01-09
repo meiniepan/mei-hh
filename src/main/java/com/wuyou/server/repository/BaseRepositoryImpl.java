@@ -1,13 +1,17 @@
 package com.wuyou.server.repository;
 
+import com.mongodb.DBCollection;
+import com.mongodb.MongoException;
 import com.mongodb.WriteResult;
 import com.wuyou.server.entities.WithId;
 import com.wuyou.server.entities.WithVersion;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.GeoResults;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
+import org.springframework.data.mongodb.core.CollectionCallback;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;

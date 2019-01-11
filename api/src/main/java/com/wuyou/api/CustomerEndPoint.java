@@ -1,20 +1,22 @@
 package com.wuyou.api;
 
+import com.wuyou.base.BaseRequest;
 import com.wuyou.base.BaseResponse;
 import com.wuyou.base.HttpCodeMessage;
 import com.wuyou.base.util.BeanUtils;
+import com.wuyou.base.util.PhoneNoUtils;
 import com.wuyou.base.util.UUIDUtils;
-import com.wuyou.captcha.MobileVerificationService;
-import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import com.wuyou.captcha.service.MobileVerificationService;
 import com.wuyou.customer.CustomerRepository;
 import com.wuyou.customer.entities.Customer;
 import com.wuyou.customer.entities.RegisterBody;
 import com.wuyou.customer.entities.TCustomer;
 import com.wuyou.customer.entities.UserToken;
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
 import java.util.List;
@@ -79,6 +81,17 @@ public class CustomerEndPoint {
     @Autowired
     MobileVerificationService mobileVerificationService;
 
+    @RequestMapping(value = "/customer/captcha", method = RequestMethod.POST)
+    public BaseResponse applyVerificationCode(@RequestBody BaseRequest<String> request) {
+        if (!PhoneNoUtils.isValidPhoneNo(request.getValue())) {
+            return new BaseResponse(HttpStatus.BAD_REQUEST);
+        }
+        if (mobileVerificationService.send(request.getValue())) {
+            return new BaseResponse(HttpStatus.OK);
+        } else {
+            return new BaseResponse(HttpStatus.BAD_GATEWAY);
+        }
+    }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public BaseResponse registerByPhone(@RequestBody RegisterBody body) {

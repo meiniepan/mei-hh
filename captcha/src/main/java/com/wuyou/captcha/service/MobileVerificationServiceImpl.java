@@ -1,4 +1,4 @@
-package com.wuyou.captcha;
+package com.wuyou.captcha.service;
 
 import com.wuyou.captcha.repository.Captcha;
 import com.wuyou.captcha.repository.CaptchaRepository;

@@ -1,4 +1,4 @@
-package com.wuyou.captcha;
+package com.wuyou.captcha.service;
 
 public interface MobileVerificationService {
     /**

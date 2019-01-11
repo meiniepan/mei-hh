@@ -6,7 +6,6 @@
         <groupId>com.wuyou</groupId>
         <artifactId>server</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>com.wuyou</groupId>
@@ -14,32 +13,33 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>api</name>
 
-
+    <!--注意依赖顺序-->
     <dependencies>
         <dependency>
             <groupId>com.wuyou</groupId>
-            <artifactId>base</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>mongo</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.wuyou</groupId>
+            <artifactId>base</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.wuyou</groupId>
             <artifactId>captcha</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.wuyou</groupId>
-            <artifactId>customer</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.wuyou</groupId>
-            <artifactId>mongo</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>com.wuyou</groupId>
             <artifactId>payment</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wuyou</groupId>
+            <artifactId>customer</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>dom4j</groupId>

@@ -9,6 +9,7 @@ import com.wuyou.payment.wechat.WechatPaymentService;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -66,7 +67,6 @@ public class WechatPaymentEndpoint {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public BaseResponse<?> unifiedOrder(@RequestParam("me") String selfId,
                                         @RequestBody PaymentUnifiedOrderRequest weChatUnifiedOrderRequest) {
-
         BigDecimal totalFee = weChatUnifiedOrderRequest.getTotalFee();
         if (totalFee == null || totalFee.floatValue() <= 0) {
             return new BaseResponse<>(HttpStatus.BAD_REQUEST);

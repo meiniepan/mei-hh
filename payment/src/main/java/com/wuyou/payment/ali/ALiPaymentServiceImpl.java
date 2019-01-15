@@ -6,7 +6,9 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.domain.AlipayTradeAppPayModel;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradeAppPayRequest;
+import com.alipay.api.request.AlipayTradeQueryRequest;
 import com.alipay.api.response.AlipayTradeAppPayResponse;
+import com.alipay.api.response.AlipayTradeQueryResponse;
 import com.wuyou.base.BaseResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,19 +30,19 @@ public class ALiPaymentServiceImpl implements ALiPaymentService {
     @Value("${alipay.public_key}")
     private String ALIPAY_PUBLIC_KEY;
     @Value("${alipay.app_id}")
-    private String appId;
+    private String APP_ID;
     @Value("${alipay.app_key}")
-    private String appKey;
+    private String APP_KEY;
     @Value("${alipay.time_out_express}")
     private String timeOutExpress;
-    @Value("{alipay.notify_url}")
+    @Value("${alipay.notify_url}")
     private String notifyUrl;
 
     @Override
     public BaseResponse<?> generatePayment(String paymentId, String targetId, BigDecimal totalFee) {
         //实例化客户端
         AlipayClient alipayClient = new DefaultAlipayClient(ALI_ENDPOINT,
-                appId, appKey, "json", CHARSET, ALIPAY_PUBLIC_KEY, SIGN_TYPE);
+                APP_ID, APP_KEY, "json", CHARSET, ALIPAY_PUBLIC_KEY, SIGN_TYPE);
 //实例化具体API对应的request类,类名称和接口名称对应,当前调用接口名称：alipay.trade.app.pay
         AlipayTradeAppPayRequest request = new AlipayTradeAppPayRequest();
 //SDK已经封装掉了公共参数，这里只需要传入业务参数。以下方法为sdk的model入参方式(model和biz_content同时存在的情况下取biz_content)。
@@ -65,7 +67,7 @@ public class ALiPaymentServiceImpl implements ALiPaymentService {
     }
 
     @Override
-    public boolean verifyPayment(Map<String, String> params) {
+    public boolean verifyPayment(Map params) {
         try {
             boolean checkV1 = AlipaySignature.rsaCheckV1(params, ALIPAY_PUBLIC_KEY, CHARSET, SIGN_TYPE);
             if (checkV1) {
@@ -73,10 +75,24 @@ public class ALiPaymentServiceImpl implements ALiPaymentService {
             }
             return checkV1;
         } catch (AlipayApiException e) {
+            System.out.println("AlipayApiException.............." + e.getErrCode() + "..." + e.getErrMsg());
             e.printStackTrace();
         }
         return false;
     }
 
+    @Override
+    public void queryPayment(String outTradeNo, String tradeNo) {
+        AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do", APP_ID, APP_KEY, "json", CHARSET, ALIPAY_PUBLIC_KEY, "RSA2"); //获得初始化的AlipayClient
+        AlipayTradeQueryRequest request = new AlipayTradeQueryRequest();//创建API对应的request类
+        request.setBizContent("{" + "\"out_trade_no\":" + outTradeNo + "\"trade_no\":" + tradeNo + "}");//设置业务参数
+        AlipayTradeQueryResponse response = null;//通过alipayClient调用API，获得对应的response类
+        try {
+            response = alipayClient.execute(request);
+            System.out.print(response.getBody());
+        } catch (AlipayApiException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

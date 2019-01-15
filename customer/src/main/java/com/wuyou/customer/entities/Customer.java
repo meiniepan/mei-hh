@@ -26,6 +26,12 @@ public class Customer implements WithId<ObjectId> {
     @Indexed
     private String mobile;
 
+    private String email;
+
+    private String birthday;
+
+    private String gender;
+
     private List<Address> address;
 
     @PersistenceConstructor
@@ -70,7 +76,7 @@ public class Customer implements WithId<ObjectId> {
         return idNo;
     }
 
-    public void setIdNo(String idNo) {
+    private void setIdNo(String idNo) {
         this.idNo = idNo;
     }
 
@@ -78,7 +84,7 @@ public class Customer implements WithId<ObjectId> {
         return mobile;
     }
 
-    public void setMobile(String mobile) {
+    private void setMobile(String mobile) {
         this.mobile = mobile;
     }
 
@@ -88,5 +94,29 @@ public class Customer implements WithId<ObjectId> {
 
     public void setAddress(List<Address> address) {
         this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

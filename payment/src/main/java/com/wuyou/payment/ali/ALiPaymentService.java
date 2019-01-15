@@ -13,5 +13,7 @@ public interface ALiPaymentService {
 
     BaseResponse generatePayment(String paymentId, String targetId, BigDecimal totalFee);
 
-    boolean verifyPayment(Map<String, String> params);
+    boolean verifyPayment(Map params);
+
+    void queryPayment(String outTradeNo, String tradeNo);
 }

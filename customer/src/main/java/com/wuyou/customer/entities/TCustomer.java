@@ -4,9 +4,11 @@ import java.util.Date;
 import java.util.List;
 
 public class TCustomer {
-    private String id;
+    String id;
 
     private Date registrationDate;
+
+    private String mobile;
 
     private String avatar;
 
@@ -14,25 +16,14 @@ public class TCustomer {
 
     private String idNo;
 
-    private String mobile;
+    private String email;
+
+    private String birthday;
+
+    private String gender;
 
     private List<Address> address;
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public Date getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public void setRegistrationDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
-    }
 
     public String getAvatar() {
         return avatar;
@@ -58,6 +49,22 @@ public class TCustomer {
         this.idNo = idNo;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
     public String getMobile() {
         return mobile;
     }
@@ -73,4 +80,29 @@ public class TCustomer {
     public void setAddress(List<Address> address) {
         this.address = address;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 }
+

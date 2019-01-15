@@ -68,8 +68,10 @@ public class CustomerEndPoint {
         if (c == null) {
             return new BaseResponse(HttpStatus.NOT_FOUND);
         }
-        repository.save(BeanUtils.copyProperties(customerTemplate, c));
-        BeanUtils.copyProperties(c,customerTemplate);
+        BeanUtils.copyProperties(customerTemplate, c);
+        repository.save(c);
+
+        BeanUtils.copyProperties(c, customerTemplate);
         try {
             return new BaseResponse<>(customerTemplate);
         } catch (Exception e) {

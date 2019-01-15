@@ -34,13 +34,14 @@ public class WechatPaymentServiceImpl implements WechatPaymentService {
     @Value("${wechat.customer_wechat_app_secret}")
     private String appKey;
 
+    @Value("${wechat.notify_url}")
+    private String notifyUrl;
 
     @Autowired
     private WechatPaymentRepository repository;
 
 
     private final String appName = "来到";
-    private final String notifyUrl = "https://api.iwantmei.com/wx_pay/v1/pay/notify";
     private String host = "https://api.mch.weixin.qq.com";
     private String placePath = "/pay/unifiedorder";
     private String queryPath = "/pay/orderquery";
@@ -213,7 +214,7 @@ public class WechatPaymentServiceImpl implements WechatPaymentService {
 
         String resultXml = StringUtils.readFromInputStream(response.getEntity().getContent());
         if (null != resultXml && notify(resultXml)) {
-            return repository.findOneByPrepayId("wx0815582808707290381771793553983001");
+            return repository.findOneByPrepayId(wechatPaymentAction.getPrepayId());
         }
         return null;
     }
@@ -238,9 +239,9 @@ public class WechatPaymentServiceImpl implements WechatPaymentService {
             WechatPaymentAction wechatRechargeAction = repository.findOne(new ObjectId(actionId));
             if (wechatRechargeAction.getResultCode() == null) { //没处理过
                 if (updatePaymentAction(responseRoot, wechatRechargeAction)) {
-                    if (Code.SUCCESS.equals(wechatRechargeAction.getTradeState())){
+                    if (Code.SUCCESS.equals(wechatRechargeAction.getTradeState())) {
                         //TODO:支付成功,修改订单状态
-                    }else {
+                    } else {
 
                     }
                     return true;

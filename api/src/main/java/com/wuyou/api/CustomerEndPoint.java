@@ -1,10 +1,8 @@
 package com.wuyou.api;
 
-import com.wuyou.base.BaseRequest;
 import com.wuyou.base.BaseResponse;
 import com.wuyou.base.HttpCodeMessage;
 import com.wuyou.base.util.BeanUtils;
-import com.wuyou.base.util.PhoneNoUtils;
 import com.wuyou.base.util.UUIDUtils;
 import com.wuyou.captcha.service.MobileVerificationService;
 import com.wuyou.customer.CustomerRepository;
@@ -71,8 +69,9 @@ public class CustomerEndPoint {
             return new BaseResponse(HttpStatus.NOT_FOUND);
         }
         repository.save(BeanUtils.copyProperties(customerTemplate, c));
+        BeanUtils.copyProperties(c,customerTemplate);
         try {
-            return new BaseResponse<>(c);
+            return new BaseResponse<>(customerTemplate);
         } catch (Exception e) {
             return new BaseResponse(HttpStatus.BAD_REQUEST, HttpCodeMessage.TC020004);
         }
@@ -80,18 +79,6 @@ public class CustomerEndPoint {
 
     @Autowired
     MobileVerificationService mobileVerificationService;
-
-    @RequestMapping(value = "/customer/captcha", method = RequestMethod.POST)
-    public BaseResponse applyVerificationCode(@RequestBody BaseRequest<String> request) {
-        if (!PhoneNoUtils.isValidPhoneNo(request.getValue())) {
-            return new BaseResponse(HttpStatus.BAD_REQUEST);
-        }
-        if (mobileVerificationService.send(request.getValue())) {
-            return new BaseResponse(HttpStatus.OK);
-        } else {
-            return new BaseResponse(HttpStatus.BAD_GATEWAY);
-        }
-    }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public BaseResponse registerByPhone(@RequestBody RegisterBody body) {

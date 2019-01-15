@@ -1,15 +1,14 @@
-package com.wuyou.payment.wechat;
-
-import com.wuyou.base.util.UUIDUtils;
+package com.wuyou.payment.entities;
 
 import java.math.BigDecimal;
+
 /**
  * @author hjn
  * @created 2019-01-07
  **/
-public class WeChatUnifiedOrderRequest {
+public class PaymentUnifiedOrderRequest {
 
-    private String paymentId= UUIDUtils.generateUUID();
+    private String paymentId;
 
     private BigDecimal totalFee;
 

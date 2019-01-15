@@ -1,8 +1,8 @@
-package com.wuyou.api;
+package com.wuyou.payment;
 
 import com.wuyou.base.BaseRequest;
 import com.wuyou.base.BaseResponse;
-import com.wuyou.payment.wechat.WeChatUnifiedOrderRequest;
+import com.wuyou.payment.entities.PaymentUnifiedOrderRequest;
 import com.wuyou.payment.wechat.WechatPaymentAction;
 import com.wuyou.payment.wechat.WechatPaymentPrepay;
 import com.wuyou.payment.wechat.WechatPaymentService;
@@ -65,7 +65,7 @@ public class WechatPaymentEndpoint {
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public BaseResponse<?> unifiedOrder(@RequestParam("me") String selfId,
-                                        @RequestBody WeChatUnifiedOrderRequest weChatUnifiedOrderRequest) {
+                                        @RequestBody PaymentUnifiedOrderRequest weChatUnifiedOrderRequest) {
 
         BigDecimal totalFee = weChatUnifiedOrderRequest.getTotalFee();
         if (totalFee == null || totalFee.floatValue() <= 0) {
@@ -77,6 +77,7 @@ public class WechatPaymentEndpoint {
         String paymentId = weChatUnifiedOrderRequest.getPaymentId();
 
         String targetId = weChatUnifiedOrderRequest.getTargetId();
+
         if (null == targetId || targetId.trim().isEmpty()) {
             targetId = selfId;
         }

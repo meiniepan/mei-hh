@@ -32,7 +32,6 @@ public class ALiPaymentEndpoint {
 
     @RequestMapping(value = "/generate", method = RequestMethod.POST)
     public BaseResponse<?> generatePayment(@RequestBody PaymentUnifiedOrderRequest request) {
-        System.out.println("11111111111111111");
         return aLiPaymentService.generatePayment(request.getPaymentId(), request.getTargetId(), request.getTotalFee());
     }
 
@@ -90,6 +89,7 @@ public class ALiPaymentEndpoint {
             e.printStackTrace();
         }
     }
+
 
 
 }

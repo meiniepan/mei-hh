@@ -73,8 +73,8 @@ public class WechatPaymentServiceImpl implements WechatPaymentService {
         requestRoot.addElement(Field.NONCE_STR).addText(StringUtils.getRandomString());
         requestRoot.addElement("body").addText(wechatPaymentAction.getBody());
         requestRoot.addElement(Field.OUT_TRADE_NO).addText(wechatPaymentAction.getOutTradeNo());
-        requestRoot.addElement("total_fee").addText(String.valueOf(wechatPaymentAction.getTotalFee().multiply(new BigDecimal(100)).intValue()));
-        requestRoot.addElement("spbill_create_ip").addText("123.12.12.123");
+        requestRoot.addElement("total_fee").addText(String.valueOf(wechatPaymentAction.getTotalFee().intValue()));
+        requestRoot.addElement("spbill_create_ip").addText(clientIp);
         requestRoot.addElement("time_start").addText(wechatPaymentAction.getTimeStart());
         requestRoot.addElement("time_expire").addText(getCurrentTimeForRequest(6));
         requestRoot.addElement("trade_type").addText("APP");

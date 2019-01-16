@@ -6,12 +6,11 @@
         <groupId>com.wuyou</groupId>
         <artifactId>server</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-
-    <artifactId>payment</artifactId>
+    <artifactId>face</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>payment</name>
-
+    <name>face</name>
 
     <dependencies>
         <dependency>
@@ -25,26 +24,20 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
+            <groupId>com.wuyou</groupId>
+            <artifactId>customer</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.alipay.sdk</groupId>
-            <artifactId>alipay-sdk-java</artifactId>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-cloudauth</artifactId>
         </dependency>
     </dependencies>
+
     <!--<build>-->
         <!--<plugins>-->
             <!--<plugin>-->
@@ -53,4 +46,5 @@
             <!--</plugin>-->
         <!--</plugins>-->
     <!--</build>-->
+
 </project>

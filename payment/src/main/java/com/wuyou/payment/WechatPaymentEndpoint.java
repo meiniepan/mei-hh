@@ -9,7 +9,6 @@ import com.wuyou.payment.wechat.WechatPaymentService;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -83,7 +82,7 @@ public class WechatPaymentEndpoint {
         }
 
         try {
-            WechatPaymentPrepay unifiedorder = wechatPaymentService.unifiedorder(selfId, targetId, paymentId, totalFee, "");
+            WechatPaymentPrepay unifiedorder = wechatPaymentService.unifiedorder(selfId, targetId, paymentId, totalFee, "192.168.1.169");
 
             if (null != unifiedorder) {
                 return new BaseResponse<>(unifiedorder, HttpStatus.OK);

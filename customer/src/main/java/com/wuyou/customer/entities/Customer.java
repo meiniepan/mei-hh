@@ -34,6 +34,8 @@ public class Customer implements WithId<ObjectId> {
 
     private List<Address> address;
 
+    private AuthData authData;
+
     @PersistenceConstructor
     public Customer(ObjectId id, Date registrationDate, String mobile) {
         this.id = id;
@@ -118,5 +120,13 @@ public class Customer implements WithId<ObjectId> {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public AuthData getAuthData() {
+        return authData;
+    }
+
+    public void setAuthData(AuthData authData) {
+        this.authData = authData;
     }
 }

@@ -1,13 +1,13 @@
-package com.wuyou.payment;
+package com.wuyou.face;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-//@SpringBootApplication
-public class PaymentApplication {
+@SpringBootApplication
+public class FaceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(PaymentApplication.class, args);
+        SpringApplication.run(FaceApplication.class, args);
     }
 
 }

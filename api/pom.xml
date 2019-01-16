@@ -13,7 +13,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>api</name>
 
-    <!--注意依赖顺序-->
     <dependencies>
         <dependency>
             <groupId>com.wuyou</groupId>

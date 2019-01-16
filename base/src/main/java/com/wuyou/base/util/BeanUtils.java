@@ -47,7 +47,7 @@ public class BeanUtils {
                                     writeMethod.setAccessible(true);
                                 }
 
-                                if (! isAssignable && value != null) {
+                                if (!isAssignable && value != null) {
                                     if (string2ObjectId) {
                                         value = new ObjectId(value.toString());
                                     } else if (objectId2String) {
@@ -55,10 +55,8 @@ public class BeanUtils {
                                     }
                                 }
                                 writeMethod.invoke(target, value);
-                            }
-                            catch (Throwable ex) {
-                                throw new FatalBeanException(
-                                        "Could not copy property '" + targetPd.getName() + "' from source to target", ex);
+                            } catch (Throwable ex) {
+                                throw new FatalBeanException("Could not copy property '" + targetPd.getName() + "' from source to target", ex);
                             }
                         }
                     }
@@ -70,7 +68,7 @@ public class BeanUtils {
 
     public static String formatFieldValue(Object value, Class<?> fieldClass) {
         if (fieldClass == Date.class) {
-            return String.valueOf(((Date)value).getTime());
+            return String.valueOf(((Date) value).getTime());
         } else {
             return value.toString();
         }

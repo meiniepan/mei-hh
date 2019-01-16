@@ -1,4 +1,4 @@
-package com.wuyou.payment;
+package com.wuyou.face;
 
 import com.wuyou.mongo.repository.BaseRepositoryImpl;
 import org.springframework.context.annotation.ComponentScan;

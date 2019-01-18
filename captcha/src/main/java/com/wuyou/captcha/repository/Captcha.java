@@ -14,10 +14,8 @@ import java.util.Date;
  **/
 @Document
 public class Captcha {
-
-
     @Field
-    @Indexed(name = "_date_", expireAfterSeconds = 10)
+    @Indexed(name = "_date_", expireAfterSeconds = 300)
     private Date sendDate;
 
     private String captcha;

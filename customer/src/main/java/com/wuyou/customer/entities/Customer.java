@@ -36,14 +36,26 @@ public class Customer implements WithId<ObjectId> {
 
     private AuthData authData;
 
+    private String rcToken;
+
     @PersistenceConstructor
-    public Customer(ObjectId id, Date registrationDate, String mobile) {
+    public Customer(ObjectId id, Date registrationDate, String mobile, String rcToken) {
         this.id = id;
         this.mobile = mobile;
         this.registrationDate = registrationDate;
+        this.rcToken = rcToken;
     }
 
     public Customer() {
+
+    }
+
+    public String getRcToken() {
+        return rcToken;
+    }
+
+    private void setRcToken(String rcToken) {
+        this.rcToken = rcToken;
     }
 
     public ObjectId getId() {

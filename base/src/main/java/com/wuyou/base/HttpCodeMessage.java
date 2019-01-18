@@ -12,7 +12,6 @@ public class HttpCodeMessage {
     public static final String TC020009 = "未找到该用户的基本信息！";
     public static final String TC020010 = "该手机号已经存在，请更换新手机号！";
     public static final String TC020011 = "修改失败，请重新提交修改信息！";
-    public static final String TC020012 = "修改失败，请重新提交修改信息！";
     public static final String TC020013 = "未找到该用户的基本信息！";
     public static final String TC020014 = "未找到该用户的基本信息！";
     public static final String TC020015 = "修改失败，请重新提交修改信息！";
@@ -47,4 +46,7 @@ public class HttpCodeMessage {
     public static final String TC020044 = "请先解绑个人银行卡，再更换手机号码！";
     public static final String TC020045 = "手机号码修改成功！";
     public static final String TC020046 = "手机号码修改成功，请尽快进行实名认证！";
+    public static final String TC020047 = "验证码服务内部异常！";
+    public static final String TC020048 = "推送消息信息绑定失败！";
+    public static final String TC020049 = "验证码发送成功！";
 }

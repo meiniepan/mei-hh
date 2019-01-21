@@ -11,9 +11,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @author hjn
  * @created 2019-01-09
  **/
-@Configuration
-@EnableMongoRepositories(repositoryBaseClass = BaseRepositoryImpl.class, basePackages = ("com.wuyou"))
-@ComponentScan(basePackages = ("com.wuyou"))
+//@Configuration
+//@EnableMongoRepositories(repositoryBaseClass = BaseRepositoryImpl.class, basePackages = ("com.wuyou"))
+//@ComponentScan(basePackages = ("com.wuyou"))
 public class Config extends WebMvcConfigurerAdapter {
     @Override
     public void addCorsMappings(CorsRegistry registry) {

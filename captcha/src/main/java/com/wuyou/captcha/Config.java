@@ -9,8 +9,8 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
  * @author hjn
  * @created 2019-01-09
  **/
-@Configuration
-@EnableMongoRepositories(repositoryBaseClass = BaseRepositoryImpl.class, basePackages = ("com.wuyou"))
-@ComponentScan(basePackages = ("com.wuyou"))
+//@Configuration
+//@EnableMongoRepositories(repositoryBaseClass = BaseRepositoryImpl.class, basePackages = ("com.wuyou"))
+//@ComponentScan(basePackages = ("com.wuyou"))
 public class Config {
 }

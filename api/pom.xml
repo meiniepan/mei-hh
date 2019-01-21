@@ -41,6 +41,11 @@
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.wuyou</groupId>
+            <artifactId>message</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
         </dependency>

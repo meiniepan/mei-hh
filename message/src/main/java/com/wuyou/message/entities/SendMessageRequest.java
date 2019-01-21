@@ -8,4 +8,5 @@ public class SendMessageRequest {
     public String from;
     public String to;
     public String content;
+    public String extraData;
 }

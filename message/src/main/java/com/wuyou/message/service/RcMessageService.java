@@ -10,6 +10,6 @@ public interface RcMessageService {
 
     String registerRcUser(String uid, String name, String avatar);
 
-    ResponseResult sendSingleMessage(String fromUid, String toUid, String content);
+    ResponseResult sendSingleMessage(String fromUid, String toUid, String content,String extraData);
 
 }

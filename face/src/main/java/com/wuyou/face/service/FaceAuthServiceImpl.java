@@ -10,6 +10,7 @@ import com.wuyou.customer.CustomerRepository;
 import com.wuyou.customer.entities.AuthData;
 import com.wuyou.customer.entities.Customer;
 import com.wuyou.face.entities.AuthTokenResponse;
+import com.wuyou.face.entities.FaceCompareData;
 import org.bson.types.ObjectId;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,6 +134,11 @@ public class FaceAuthServiceImpl implements FaceAuthService {
                 e.printStackTrace();
             }
         }
+        return null;
+    }
+
+    @Override
+    public FaceCompareData faceComparation(String pictureUrl) {
         return null;
     }
 

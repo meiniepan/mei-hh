@@ -21,6 +21,7 @@
         <module>customer</module>
         <module>payment</module>
         <module>message</module>
+        <module>database-transfer</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
@@ -102,6 +103,7 @@
                 <version>2.8.2</version>
             </dependency>
         </dependencies>
+
     </dependencyManagement>
 
     <!--<build>-->

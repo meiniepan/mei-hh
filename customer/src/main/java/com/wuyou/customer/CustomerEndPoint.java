@@ -9,6 +9,7 @@ import com.wuyou.customer.entities.Customer;
 import com.wuyou.customer.entities.RegisterBody;
 import com.wuyou.customer.entities.TCustomer;
 import com.wuyou.customer.entities.UserToken;
+import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
